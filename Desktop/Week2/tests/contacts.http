@@ -1,9 +1,9 @@
 @port = 3001
+@contactPath = /api/v1/contacts
 
-###
-### POST Request for a contact 
-## Expected result is ........
-POST http://localhost:{{port}}/api/v1/contacts HTTP/1.1
+### 
+# POST Request to create a new contact 
+POST http://localhost:{{port}}{{contactPath}} HTTP/1.1
 content-type: application/json
 
 {
@@ -12,7 +12,27 @@ content-type: application/json
     "email": "s00227213@atu.ie"
 }
 
-###
-### GET Request to fetch all contacts
-## Expected result is ........
-GET http://localhost:{{port}}/api/v1/contacts HTTP/1.1
+### @name getAllContacts
+# GET Request to fetch all contacts
+GET http://localhost:{{port}}{{contactPath}} HTTP/1.1
+
+
+
+### @name getSpecificContact
+# GET request for a specific contact
+GET http://localhost:{{port}}{{contactPath}}/{{getAllContacts.response.body[0]._id}} HTTP/1.1
+
+### @name updateSpecificContact
+# PUT request to update a specific contact
+PUT http://localhost:{{port}}{{contactPath}}/{{getAllContacts.response.body[0]._id}} HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Updated Name",
+    "phoneNumber": "Updated Phone",
+    "email": "updatedemail@atu.ie"
+}
+
+### @name deleteSpecificContact
+# DELETE request for a specific contact
+DELETE http://localhost:{{port}}{{contactPath}}/{{getAllContacts.response.body[0]._id}} HTTP/1.1

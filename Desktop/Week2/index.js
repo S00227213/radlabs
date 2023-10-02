@@ -4,13 +4,13 @@ const app = express();
 const port = process.env.PORT || 3001;
 require('dotenv').config();
 
-// Middleware to parse JSON requests
+
 app.use(express.json());
 
 // Require the contacts router
 const contacts = require('./routes/contacts');
 
-// Use the contacts router with the specified route prefix
+// Use the contacts router with the specified route 
 app.use('/api/v1/contacts', contacts);
 
 // Retrieve connection string from environment variables
@@ -25,10 +25,12 @@ mongoose
   .then(() => {
     console.log('DB connected ' + connectionString);
 
-    // Start the Express server inside the then() block
+    // Start the Express server
     app.listen(port, () => console.log(`Example app listening on port ${port}!`));
   })
   .catch((error) => {
     console.error(`Database connection refused ${error}`);
     process.exit(2);
   });
+
+  module.exports = app; 
