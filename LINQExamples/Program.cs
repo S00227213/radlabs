@@ -12,7 +12,7 @@ namespace LINQExamples
         static void Main(string[] args)
         {
             GameObjects _gobjs = new GameObjects();
-            ActivityAPIClient.Track(StudentID: "S0099995", StudentName: "Paul Powell 5",
+            ActivityAPIClient.Track(StudentID: "S00227213", StudentName: "Jack Monaghan",
                 activityName: "Rad301 2023 Week 1 Lab 1", Task: "Initial Setup");
             foreach (var item in _gobjs.Collectables)
             {
