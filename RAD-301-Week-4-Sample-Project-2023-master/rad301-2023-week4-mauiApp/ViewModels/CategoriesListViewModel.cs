@@ -14,8 +14,10 @@ namespace rad301_2023_week3_mauiApp.ViewModels
 {
     public partial class CategoriesListViewModel : ObservableObject
     {
-        public ICategory<Category> CategoryDataService { get; }
-        public CategoriesListViewModel(ICategory<Category> categoryDataService) {
+        public rad301_2023_week3_mauiApp.DataLayer.ICategory<Category> CategoryDataService { get; }
+
+        public CategoriesListViewModel(rad301_2023_week3_mauiApp.DataLayer.ICategory<Category> categoryDataService)
+        {
             CategoryDataService = categoryDataService;
             Categories = new(Task.Run(() => CategoryDataService.GetAll()).Result);
         }
@@ -26,11 +28,9 @@ namespace rad301_2023_week3_mauiApp.ViewModels
         [RelayCommand]
         public async void Goto(Category category)
         {
-            // Call the Category Page with it's assocaited view
+            // Call the Category Page with its associated view
             await Shell.Current.GoToAsync(nameof(CategoryPage),
-                new Dictionary<string, object> { { "CurrentCategory", category} });
+                new Dictionary<string, object> { { "CurrentCategory", category } });
         }
-
-
     }
 }
