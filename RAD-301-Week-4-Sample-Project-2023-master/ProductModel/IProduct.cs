@@ -8,8 +8,8 @@ namespace ProductModel
 {
     public interface IProduct<T> : IRepository<T> where T : Product
     {
-        void Update(Product product);  // Add this line here
+        void Update(Product product);  
 
-        // Might want to implement specific Product functionality Later
+      
     }
 }

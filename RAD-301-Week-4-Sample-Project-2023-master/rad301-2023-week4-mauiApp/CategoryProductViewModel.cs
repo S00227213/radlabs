@@ -8,7 +8,7 @@ namespace rad301_2023_week3_mauiApp
 {
     public class CategoryProductViewModel : INotifyPropertyChanged
     {
-        private readonly IProduct<Product> _productDataService;  // Updated this to be the correct service type
+        private readonly IProduct<Product> _productDataService;  
 
         #region INotifyPropertyChanged Implementation
 
@@ -56,7 +56,7 @@ namespace rad301_2023_week3_mauiApp
             SaveChangesCommand = new RelayCommand(SaveChanges);
         }
 
-        public CategoryProductViewModel(Product selectedProduct, IProduct<Product> productDataService) // Updated this to be the correct service type
+        public CategoryProductViewModel(Product selectedProduct, IProduct<Product> productDataService) 
         {
             CurrentProduct = selectedProduct;
             _productDataService = productDataService;

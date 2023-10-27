@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Week5_Sample_code.Pages.ToggleConentViewPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:data="clr-namespace:ProductModel"
+             Title="Content View Page example">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout>
+    <VerticalStackLayout>
+        <Label 
+            Text="Suppliers"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <CollectionView ItemsSource="{Binding Suppliers}"
+                SelectionMode="Single"
+                SelectionChanged="OnCollectionViewSelectionChanged">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="data:Supplier">
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" 
+                                 Text="{Binding SupplierID}" 
+                                 FontAttributes="Bold" />
+                        <Label Grid.Column="1" 
+                                 Text="{Binding SupplierName }" 
+                                 FontAttributes="Bold" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Margin="10"
+            IsEnabled="{Binding Source={x:Reference NewSupplierPanel},Path=IsVisible,
+                                                    Converter={StaticResource InvertedBoolConverter}}"
+            Command="{Binding AddSupplierCommand}"
+            HeightRequest="50"
+            HorizontalOptions="Center"
+            Text="Add New Supplier"
+            VerticalOptions="Start"
+            WidthRequest="200" >
+        </Button>
+    </VerticalStackLayout>
+        <Border Padding="10"
+                            Margin="20"
+                            StrokeThickness="1"
+                            BackgroundColor="Orange"/>
+
+        <StackLayout x:Name="NewSupplierPanel" IsVisible="{Binding AddingSupplier}">
+            <Grid Padding="10,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Grid.Row="0"
+                          Text="ID" 
+                          FontAttributes="Bold" />
+                <Label Grid.Column="0" Grid.Row="1"
+                         Text="Name" 
+                          FontAttributes="Bold" />
+                <Label Grid.Column="0"  Grid.Row="2"
+                          Text="Address Line 1" 
+                          FontAttributes="Bold" />
+                <Label Grid.Column="0"  Grid.Row="3"
+                          Text="Address Line 2" 
+                          FontAttributes="Bold" />
+
+                <Editor Grid.Column="1" Grid.Row="0" Keyboard="Numeric"
+                          Text="{Binding Supplier.SupplierID}"
+                          FontAttributes="Bold" />
+                <Editor Grid.Column="1" Grid.Row="1" Keyboard="Plain"
+                         Text="{Binding Supplier.SupplierName}" 
+                          FontAttributes="Bold" />
+                <Editor Grid.Column="1"  Grid.Row="2" Keyboard="Plain"
+                          Text="{Binding Supplier.SupplierAddressLine1}" 
+                          FontAttributes="Bold" />
+                <Editor Grid.Column="1"  Grid.Row="3"
+                          Text="{Binding Supplier.SupplierAddressLine2}" 
+                          FontAttributes="Bold" />
+            </Grid>
+            <HorizontalStackLayout>
+                <Button Margin="10"
+                Command="{Binding SaveSupplierCommand}"
+                HeightRequest="50"
+                HorizontalOptions="Center"
+                Text="Save New Supplier"
+                VerticalOptions="Start"
+                WidthRequest="200" />
+
+                <Button Margin="10"
+                Command="{Binding CancelAddSupplierCommand}"
+                HeightRequest="50"
+                HorizontalOptions="Center"
+                Text="Cancel"
+                VerticalOptions="End"
+                WidthRequest="200" />
+
+            </HorizontalStackLayout>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

@@ -10,6 +10,6 @@ namespace ProductModel
     {
         void Update(T entityToUpdate);
 
-        // Might want to implement specific Product functionality Later
+
     }
 }
