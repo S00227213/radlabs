@@ -8,6 +8,8 @@ namespace ProductModel
 {
     public interface ICategory<T> : IRepository<T> where T : Category
     {
+        void Update(T entityToUpdate);
+
         // Might want to implement specific Product functionality Later
     }
 }

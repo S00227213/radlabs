@@ -4,12 +4,22 @@
              x:Class="rad301_2023_week3_mauiApp.Pages.CategoryProductsPage"
              xmlns:data="rad301_2023_week3_mauiApp.ViewModels"
              Title="Product Page">
-    <!--Data binding done code behind in constructor-->
+
     <VerticalStackLayout>
         <Label 
             Text="Products Details"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
+        <!-- Product Details -->
+        <StackLayout Padding="10">
+            <Label Text="{Binding CurrentProduct.ID}" FontSize="Medium" />
+            <Label Text="{Binding CurrentProduct.Description}" FontSize="Medium" />
+            <Label Text="{Binding CurrentProduct.UnitPrice}" FontSize="Medium" />
+            <Label Text="{Binding CurrentProduct.QuantityInStock}" FontSize="Medium" />
+
+            <!-- Save Changes Button -->
+            <Button Text="Save Changes" Command="{Binding SaveChangesCommand}" VerticalOptions="End" HorizontalOptions="Center" />
+        </StackLayout>
     </VerticalStackLayout>
 </ContentPage>

@@ -12,48 +12,65 @@ namespace rad301_2023_week3_mauiApp.DataLayer
     public class CategoryDataService : ICategory<Category>
     {
         private readonly MauiProductContext _context;
+
         public CategoryDataService(MauiProductContext productContext)
         {
             _context = productContext;
         }
 
-
-        public Task Add(Category entity)
+        public async Task Add(Category entity)
         {
-            throw new NotImplementedException();
+            _context.Categories.Add(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public Task AddRange(IEnumerable<Category> entities)
+        public async Task AddRange(IEnumerable<Category> entities)
         {
-            throw new NotImplementedException();
+            _context.Categories.AddRange(entities);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<List<Category>> Find(Expression<Func<Category, bool>> predicate)
+        public async Task<List<Category>> Find(Expression<Func<Category, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await _context.Categories
+                        .Include(c => c.Products)
+                        .ThenInclude(p => p.Suppliers)
+                        .Where(predicate)
+                        .ToListAsync();
         }
 
-        public Task<Category> Get(int id)
+        public async Task<Category> Get(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Categories
+                        .Include(c => c.Products)
+                        .ThenInclude(p => p.Suppliers)
+                        .FirstOrDefaultAsync(c => c.CategoryID == id);
         }
 
-        public Task<List<Category>> GetAll()
+        public async Task<List<Category>> GetAll()
         {
-            return _context.Categories
-             .Include(c => c.Products).
-             ThenInclude(p => p.Suppliers)
-             .ToListAsync();
+            return await _context.Categories
+                        .Include(c => c.Products)
+                        .ThenInclude(p => p.Suppliers)
+                        .ToListAsync();
         }
 
-        public Task Remove(Category entity)
+        public async Task Remove(Category entity)
         {
-            throw new NotImplementedException();
+            _context.Categories.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public Task RemoveRange(IEnumerable<Category> entities)
+        public async Task RemoveRange(IEnumerable<Category> entities)
         {
-            throw new NotImplementedException();
+            _context.Categories.RemoveRange(entities);
+            await _context.SaveChangesAsync();
+        }
+
+        public async void Update(Category entityToUpdate)
+        {
+            _context.Categories.Update(entityToUpdate);
+            await _context.SaveChangesAsync();
         }
     }
 }

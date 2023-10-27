@@ -6,8 +6,8 @@
              Title="Category Page"
              xmlns:data="clr-namespace:ProductModel;assembly=ProductModel"
              x:DataType="local:CategoryViewModel">
-    <!--Data binding done code behind in constructor-->
     <VerticalStackLayout>
+
         <Label 
             Text="Category Products for"
             VerticalOptions="Center" 
@@ -15,17 +15,34 @@
 
         <Label Text="{Binding CurrentCategory.Description}"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" >
-        </Label>
+            HorizontalOptions="Center" />
+
         <HorizontalStackLayout>
-        <Label Text="Number of Products in thsi category "
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" >
-        </Label>
+            <Label Text="Number of Products in this category"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
             <Label Text="{Binding CurrentCategory.Products.Count}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" >
-        </Label>
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
         </HorizontalStackLayout>
+
+        <!-- Modified CollectionView for Products list -->
+        <CollectionView x:Name="ProductsCollectionView" ItemsSource="{Binding CurrentCategory.Products}" SelectionChanged="OnProductSelected">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="data:Product">
+                    <!-- Ensure correct namespace and type for the Product -->
+                    <StackLayout Orientation="Horizontal" Padding="10">
+                        <Label Text="{Binding ProductID}" WidthRequest="50"/>
+                        <Label Text="{Binding Description}" WidthRequest="150"/>
+                        <Label Text="{Binding UnitPrice}" WidthRequest="100"/>
+                        <Label Text="{Binding QuantityInStock}" WidthRequest="50"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
     </VerticalStackLayout>
 </ContentPage>
