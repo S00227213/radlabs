@@ -70,8 +70,7 @@ namespace rad301_2023_week3_mauiApp
 
         public void LoadProductDetails()
         {
-            // Fill in this placeholder with the correct method call to load product details 
-            // based on your _productDataService implementation.
+        
         }
 
         private void SaveChanges()

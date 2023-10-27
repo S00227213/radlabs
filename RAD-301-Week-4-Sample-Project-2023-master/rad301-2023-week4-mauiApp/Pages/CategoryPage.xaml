@@ -33,7 +33,6 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="data:Product">
-                    <!-- Ensure correct namespace and type for the Product -->
                     <StackLayout Orientation="Horizontal" Padding="10">
                         <Label Text="{Binding ProductID}" WidthRequest="50"/>
                         <Label Text="{Binding Description}" WidthRequest="150"/>
