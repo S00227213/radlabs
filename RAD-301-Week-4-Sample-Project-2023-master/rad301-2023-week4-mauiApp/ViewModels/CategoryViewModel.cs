@@ -15,10 +15,8 @@ namespace rad301_2023_week3_mauiApp.ViewModels
     [QueryProperty("CurrentCategory", "CurrentCategory")]
     public partial class CategoryViewModel : ObservableObject
     {
-        public ProductModel.ICategory<Category> CategoryDataService { get; }
-
-        public CategoryViewModel(ProductModel.ICategory<Category> categoryDataService)
-        {
+        public ICategory<Category> CategoryDataService { get; }
+        public CategoryViewModel(ICategory<Category> categoryDataService) {
             CategoryDataService = categoryDataService;
         }
 
@@ -33,7 +31,7 @@ namespace rad301_2023_week3_mauiApp.ViewModels
         {
             // Call the Patient sessions 
             await Shell.Current.GoToAsync(nameof(CategoryProductsPage),
-                new Dictionary<string, object> { { "CurrentProduct", product } });
+                new Dictionary<string, object> { { "CurrentProduct", product} });
         }
 
         public void LoadProducts()
@@ -44,5 +42,8 @@ namespace rad301_2023_week3_mauiApp.ViewModels
                 CategoryProducts = new ObservableCollection<Product>(CurrentCategory.Products);
             }
         }
+
+
+
     }
 }

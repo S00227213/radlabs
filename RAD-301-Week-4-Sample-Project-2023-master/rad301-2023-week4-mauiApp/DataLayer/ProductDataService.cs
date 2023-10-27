@@ -33,12 +33,6 @@ namespace rad301_2023_week3_mauiApp.DataLayer
             throw new NotImplementedException();
         }
 
-        public async Task Update(Product entity)
-        {
-            _context.Entry(entity).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-        }
-
         public Task<Product> Get(int id)
         {
             throw new NotImplementedException();

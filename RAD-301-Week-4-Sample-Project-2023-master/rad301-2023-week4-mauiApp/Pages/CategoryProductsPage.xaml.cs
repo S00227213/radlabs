@@ -1,39 +1,32 @@
 using rad301_2023_week3_mauiApp.ViewModels;
 
-namespace rad301_2023_week3_mauiApp.Pages
+namespace rad301_2023_week3_mauiApp.Pages;
+
+public partial class CategoryProductsPage : ContentPage
 {
-    public partial class CategoryProductsPage : ContentPage
+	public CategoryProductsPage(ICategory<Category> categoryDataService)
+	{
+        BindingContext = new CategoryViewModel(categoryDataService);
+		InitializeComponent();
+	}
+
+    public CategoryViewModel CategoryViewModel
     {
-        // Adding a property for CategoryProductViewModel
-        public CategoryProductViewModel CategoryProductViewModel { get; set; }
-
-        // Modifying the constructor to accept CategoryProductViewModel instead of ICategory<Category>
-        public CategoryProductsPage(CategoryProductViewModel viewModel)
+        get => default;
+        set
         {
-            CategoryProductViewModel = viewModel;
-            BindingContext = CategoryProductViewModel;
-            InitializeComponent();
+        }
+    }
+
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        if (BindingContext != null)
+        {
+
+            CategoryViewModel vm = (CategoryViewModel)this.BindingContext;
+            vm.LoadProducts();
         }
 
-       public CategoryViewModel CategoryViewModel
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-
-        protected override void OnNavigatedTo(NavigatedToEventArgs args)
-        {
-            // Updating this section to work with CategoryProductViewModel
-            if (CategoryProductViewModel != null)
-            {
-                CategoryProductViewModel vm = CategoryProductViewModel;
-                
-            }
-
-            base.OnNavigatedTo(args);
-        }
+        base.OnNavigatedTo(args);
     }
 }

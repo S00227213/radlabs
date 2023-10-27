@@ -15,13 +15,12 @@ namespace rad301_2023_week3_mauiApp.ViewModels
     public partial class MainViewModel : ObservableObject
     {
         public IAudioManager AudioManager { get; set; }
-        public ProductModel.ICategory<Category> CategoryDataService { get; } // Specified the namespace here
+        public ICategory<Category> CategoryDataService { get; }
         public IAudioPlayer AudioPlayer { get; set; }
-        public MainViewModel(ProductModel.ICategory<Category> categoryDataService, IAudioManager audioManager)
-        {
+        public MainViewModel(ICategory<Category> categoryDataService, IAudioManager audioManager) {
             AudioManager = audioManager;
             CategoryDataService = categoryDataService;
-            Categories = new(Task.Run(() => categoryDataService.GetAll()).Result);
+            Categories = new(Task.Run (() => categoryDataService.GetAll()).Result);
         }
 
         [ObservableProperty]
@@ -35,16 +34,17 @@ namespace rad301_2023_week3_mauiApp.ViewModels
                 new Dictionary<string, object> { { "CurrentCategory", category } });
         }
 
+
         public void Play(string Sound)
         {
-            System.IO.Stream s = Task.Run(() => FileSystem.OpenAppPackageFileAsync(Sound)).Result;
+            System.IO.Stream s = Task.Run(() => FileSystem.OpenAppPackageFileAsync(Sound)).Result ;
             AudioPlayer = AudioManager.CreatePlayer(s);
             AudioPlayer.Play();
         }
 
         public async void FillCategories()
         {
-
+            
         }
 
     }
