@@ -9,7 +9,7 @@ namespace Week5MauiLabS00227213.ViewModels
 {
     internal class SupplierListViewModel
     {
-        // This assumes SupplierDataService implements IRepository<Supplier>
+      
         private readonly SupplierDataService _supplierDataService;
 
         public ObservableCollection<Supplier> Suppliers { get; private set; }
@@ -45,6 +45,6 @@ namespace Week5MauiLabS00227213.ViewModels
             }
         }
 
-        //... (Further methods related to adding new supplier/product, as described in the instructions, can be added here)
+       
     }
 }
