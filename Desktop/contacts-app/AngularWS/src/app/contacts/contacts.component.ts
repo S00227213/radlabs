@@ -12,7 +12,7 @@ export class ContactsComponent implements OnInit {
     contacts: Contact[] = [];
     message: string = '';
 
-    constructor(private contactService: ContactService) { } // Injecting the new service
+    constructor(private contactService: ContactService) { } 
 
     ngOnInit(): void {
         this.contactService.getContacts().subscribe({
