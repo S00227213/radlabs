@@ -27,6 +27,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rad301-2023-week4-mauiApp",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Week5MauiLabS00227213", "Week5MauiLabS00227213\Week5MauiLabS00227213.csproj", "{EBDE1B96-2330-41A1-A3ED-1B7DDEE042AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Week6ProductDomain.BusinessModel", "Week6ProductDomain.BusinessModel\Week6ProductDomain.BusinessModel.csproj", "{C30D2419-7861-4E6B-9590-1810D4FE10A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Week6MVCProduct2324", "Week6MVCProduct2324\Week6MVCProduct2324.csproj", "{2871C071-EE4C-4C64-A131-02354AE49309}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +93,14 @@ Global
 		{EBDE1B96-2330-41A1-A3ED-1B7DDEE042AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBDE1B96-2330-41A1-A3ED-1B7DDEE042AF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EBDE1B96-2330-41A1-A3ED-1B7DDEE042AF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C30D2419-7861-4E6B-9590-1810D4FE10A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C30D2419-7861-4E6B-9590-1810D4FE10A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C30D2419-7861-4E6B-9590-1810D4FE10A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C30D2419-7861-4E6B-9590-1810D4FE10A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2871C071-EE4C-4C64-A131-02354AE49309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2871C071-EE4C-4C64-A131-02354AE49309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2871C071-EE4C-4C64-A131-02354AE49309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2871C071-EE4C-4C64-A131-02354AE49309}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
