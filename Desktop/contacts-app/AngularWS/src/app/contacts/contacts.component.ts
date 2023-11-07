@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DummycontactService } from '../dummycontact.service';
+import { ContactService } from '../contact.service'; 
 import { Contact } from '../contact';
 
 @Component({
@@ -12,7 +12,7 @@ export class ContactsComponent implements OnInit {
     contacts: Contact[] = [];
     message: string = '';
 
-    constructor(private contactService: DummycontactService) { }
+    constructor(private contactService: ContactService) { } // Injecting the new service
 
     ngOnInit(): void {
         this.contactService.getContacts().subscribe({
