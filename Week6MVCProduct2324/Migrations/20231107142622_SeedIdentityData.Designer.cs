@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Week6MVCProduct2324.Data;
 
@@ -11,9 +12,11 @@ using Week6MVCProduct2324.Data;
 namespace Week6MVCProduct2324.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231107142622_SeedIdentityData")]
+    partial class SeedIdentityData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,8 +54,8 @@ namespace Week6MVCProduct2324.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "421afa99-7b9c-49cb-8912-0009455c8f43",
-                            ConcurrencyStamp = "a2c43785-4b14-492c-8635-a84bb75dd326",
+                            Id = "3900551e-ef4d-44d3-9dbb-ed7f67de1ad6",
+                            ConcurrencyStamp = "271f8d43-e2d9-4112-b649-5bd5e180a6fb",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -150,16 +153,16 @@ namespace Week6MVCProduct2324.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bae48cfa-0ad1-4f5d-9977-2afa6b7e0b32",
+                            Id = "536a43d6-bf3e-4ca1-b605-4f24b828dd1f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b7c4d733-fc37-4965-9988-0974ab1aa9b8",
+                            ConcurrencyStamp = "8b304604-fef6-4ff4-9a34-2d0d701b70a5",
                             Email = "paul.powell@atu.ie",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "PAUL.POWELL@ATU.IE",
-                            PasswordHash = "AQAAAAIAAYagAAAAELCOdN7iHeQBdAe4K9KyAPhYgglAwx7HkaFf2pS05gpC6hUVOyE85DBtC1zKSUiwPg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELAwmE+sEfULX11KQySFnbTCiyn39BIIoI84zwvOh5cDMdfE/vb3LOLQGFVgeQgLGg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e4347bec-cb68-484f-9b3f-2e0705ca0216",
+                            SecurityStamp = "aec1c550-9694-4eb0-bc83-76d789a513d4",
                             TwoFactorEnabled = false,
                             UserName = "paul.powell@atu.ie"
                         });
@@ -229,8 +232,8 @@ namespace Week6MVCProduct2324.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "bae48cfa-0ad1-4f5d-9977-2afa6b7e0b32",
-                            RoleId = "421afa99-7b9c-49cb-8912-0009455c8f43"
+                            UserId = "536a43d6-bf3e-4ca1-b605-4f24b828dd1f",
+                            RoleId = "3900551e-ef4d-44d3-9dbb-ed7f67de1ad6"
                         });
                 });
 

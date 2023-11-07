@@ -20,7 +20,8 @@ ActivityAPIClient.Track(
     StudentID: "S00227213",
     StudentName: "Jack Monaghan",
     activityName: "Rad301 23 Week 6 Lab 1",
-    Task: "Seeding Application Table Data");
+    Task: "Logging in as Authenticated user"
+);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
