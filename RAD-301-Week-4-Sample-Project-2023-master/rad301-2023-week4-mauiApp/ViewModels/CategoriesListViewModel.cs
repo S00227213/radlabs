@@ -17,7 +17,7 @@ namespace rad301_2023_week3_mauiApp.ViewModels
         public ICategory<Category> CategoryDataService { get; }
         public IProduct<Product> ProductDataService { get; }
 
-        public CategoriesListViewModel(ICategory<Category> categoryDataService, IProduct<Product> productDataService) // Add IProduct<Product> parameter
+        public CategoriesListViewModel(ICategory<Category> categoryDataService, IProduct<Product> productDataService) 
         {
             CategoryDataService = categoryDataService;
             ProductDataService = productDataService;

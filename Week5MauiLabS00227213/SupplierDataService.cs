@@ -36,12 +36,10 @@ namespace Week5MauiLabS00227213
             await _supplierRepository.Add(supplier);
         }
 
-        // Assuming you have a method to update Suppliers, you can update the supplier directly.
-        // Note: This method assumes that the IRepository<T> interface provides an update method. If it doesn't, you'll need to add one.
+        
         public async Task UpdateSupplierAsync(Supplier supplier)
         {
-            // Here you'd call the update method for Suppliers. If IRepository doesn't have an update, you'd need to add one.
-            // Example: await _supplierRepository.Update(supplier);
+           
         }
     }
 }
