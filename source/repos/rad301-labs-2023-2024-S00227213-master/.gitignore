@@ -1,0 +1,22 @@
+# Ignore all bin and obj folders
+bin/
+obj/
+
+# Ignore all files with the .user extension
+*.user
+
+# Ignore all log files
+*.log
+
+# Ignore all packages folder
+packages/
+
+# Ignore the build output folder
+BuildOutput/
+
+# Ignore .vs folder used by Visual Studio
+.vs/
+
+# Ignore other files that are not needed
+*.suo
+*.userprefs
