@@ -1,9 +1,0 @@
-# Ignore everything
-*
-
-# But not these files...
-!.gitignore
-!/**/*.csproj
-!/**/*.sln
-!/**/*.cs
-# Add more patterns for other files you want to keep
