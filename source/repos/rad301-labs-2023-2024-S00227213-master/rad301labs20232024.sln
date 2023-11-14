@@ -31,6 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Week6MVCProduct2324", "Week
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Week8ClassLibrary2023.DataLayer", "Week8ClassLibrary2023.DataLayer\Week8ClassLibrary2023.DataLayer.csproj", "{E71A960D-7785-431A-9838-C2E1C3E1296D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6C3ADE50-2409-4041-B3D9-D72804D5F2EF}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
