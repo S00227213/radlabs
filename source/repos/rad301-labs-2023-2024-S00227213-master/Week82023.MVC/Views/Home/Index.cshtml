@@ -1,8 +1,26 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model ClassLib.Models.Club
+
+@{
+    ViewBag.Title = "Index";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>Show Club Events</h2>
+
+@using (Html.BeginForm("Index", "ClubEvents", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ClubId, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.ClubId, (IEnumerable<SelectListItem>)ViewBag.Clubs, "Choose your club from the list", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ClubId)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Show Events" class="btn btn-default" />
+        </div>
+    </div>
+}
