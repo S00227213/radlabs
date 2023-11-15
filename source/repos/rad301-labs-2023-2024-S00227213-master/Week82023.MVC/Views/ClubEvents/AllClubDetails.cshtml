@@ -1,0 +1,36 @@
+﻿@using ClubModels
+@model IEnumerable<Club>
+
+@{
+    ViewBag.Title = "AllClubDetails";
+}
+
+<h2>All Club Details</h2>
+<!-- Form to post back to the same controller a search term -->
+<form method="get">
+    <input type="search" name="clubName" value="@ViewBag.clubName" />
+    <input type="submit" name="search" value="Search by Club name" />
+</form>
+
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.First().ClubName)</th>
+        <th>Venue</th>
+        <th>Location</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+    </tr>
+    @foreach (var club in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => club.ClubName)</td>
+            @foreach (var clubEvent in club.clubEvents)
+            {
+                <td>@Html.DisplayFor(modelItem => clubEvent.Venue)</td>
+                <td>@Html.DisplayFor(modelItem => clubEvent.Location)</td>
+                <td>@clubEvent.StartDateTime.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                <td>@clubEvent.EndDateTime.ToString("dd/MM/yyyy HH:mm:ss")</td>
+            }
+        </tr>
+    }
+</table>
