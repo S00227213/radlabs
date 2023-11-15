@@ -7,27 +7,26 @@ namespace ClubModels
 {
     public class ClubsContext : DbContext
     {
-        public DbSet<Club> Clubs { get; set; }
-        public DbSet<ClubEvent> ClubEvents { get; set; }
-        public ClubsContext()
-            : base()
+        
+        public ClubsContext(DbContextOptions<ClubsContext> options) : base(options)
         {
         }
 
-        public static ClubsContext Create()
-        {
-            return new ClubsContext();
-        }
+        public DbSet<Club> Clubs { get; set; }
+        public DbSet<ClubEvent> ClubEvents { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var myconnectionstring = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Week8DB-S00227213";
-            optionsBuilder.UseSqlServer(myconnectionstring)
-              .LogTo(Console.WriteLine,
-                     new[] { DbLoggerCategory.Database.Command.Name },
-                     LogLevel.Information).
-                        EnableSensitiveDataLogging(true);
+            if (!optionsBuilder.IsConfigured)
+            {
+                var myconnectionstring = "Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=rad301labs20232024; Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+                optionsBuilder.UseSqlServer(myconnectionstring)
+                    .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information)
+                    .EnableSensitiveDataLogging();
+            }
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
