@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Week5_Sample_code.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    xmlns:local="clr-namespace:Week5_Sample_code"
+    xmlns:pages="clr-namespace:Week5_Sample_code.Pages"
+    Shell.FlyoutBehavior="Flyout"
+    FlyoutHeaderBehavior="Default"
+    FlyoutVerticalScrollMode="Enabled"
+    FlyoutBackgroundColor="{StaticResource Primary}"
+    FlyoutWidth="270">
+
+    <Shell.Resources>
+        <Style x:Key="MyPageStyle" TargetType="Element">
+            <Setter Property="Shell.BackgroundColor" Value="CadetBlue" />
+            <Setter Property="Shell.TitleColor" Value="WhiteSmoke" />
+        </Style>
+    </Shell.Resources>
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="0.2*,0.8*">
+                <Image Source="{Binding FlyoutIcon}"
+                   Margin="5"
+                   HeightRequest="45" />
+                <Label Grid.Column="1"
+                   Text="{Binding Title}"
+                   TextColor="{Binding TextColor}"
+                   FontAttributes="Italic"
+                   VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <Shell.FlyoutFooterTemplate>
+        <DataTemplate>
+            <StackLayout>
+                <Label Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='{0:MMMM dd, yyyy}'} "
+           TextColor="GhostWhite"
+           HorizontalOptions="Center" />
+            </StackLayout>
+        </DataTemplate>
+    </Shell.FlyoutFooterTemplate>
+   
+    <local:CustomShellContent
+       TextColor="White"
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+    <local:CustomShellContent
+       TextColor="White"
+        Title="Supplier List"
+        Style="{StaticResource MyPageStyle}"
+        ContentTemplate="{DataTemplate pages:ToggleConentViewPage}"/>
+</Shell>
