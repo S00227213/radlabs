@@ -19,7 +19,7 @@ namespace ClubModels
         public DateTime CreationDate { get; set; }
         public int adminID { get; set; }
         public virtual ICollection<ClubEvent> clubEvents { get; set; }
-        
-        
+
+
     }
 }
