@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ClubModels;
+using ClubModels; 
 using System.Threading.Tasks;
 using Tracker.WebAPIClient;
+using System.Linq; 
 
 public class ClubEventsController : Controller
 {
@@ -13,25 +15,33 @@ public class ClubEventsController : Controller
         _db = db;
     }
 
-    public async Task<IActionResult> Index()
+    private List<SelectListItem> FillClubs()
     {
-        
-        var clubs = await _db.Clubs.ToListAsync();
-        return View(clubs);
+        var items = new List<SelectListItem>();
+        var clubs = _db.Clubs.ToList();
+        foreach (var item in clubs)
+        {
+            items.Add(new SelectListItem { Value = item.ClubId.ToString(), Text = item.ClubName });
+        }
+        return items;
     }
 
-    // This action returns a view with a detailed list of clubs and their events.
-    public async Task<IActionResult> AllClubDetails(string clubName = null)
+    public IActionResult Index()
     {
-        
-        ActivityAPIClient.Track(StudentID: "s00227213", StudentName: "Jack Monaghan", activityName: "RAD301 Week 8 Lab 2023", Task: "Creating Customized Views");
+        ActivityAPIClient.Track(StudentID: "s00227213", StudentName: "Jack Monaghan", activityName: "RAD301 Week 8 Lab 2023", Task: "Implementing Drop-Down List");
 
-        ViewBag.clubName = clubName;
-        var fullClub = await _db.Clubs
-            .Include(c => c.clubEvents) 
-            .Where(c => clubName == null || c.ClubName.StartsWith(clubName))
-            .ToListAsync();
-
-        return View(fullClub); 
+        ViewBag.Clubs = FillClubs();
+        return View();
     }
+
+    [HttpPost]
+    public IActionResult Index(Club model)
+    {
+        ViewBag.Clubs = FillClubs();
+        var selectedClub = _db.Clubs.FirstOrDefault(c => c.ClubId == model.ClubId);
+        
+        return View(selectedClub);
+    }
+
+   
 }
