@@ -9,6 +9,14 @@
 
 <h2>Index</h2>
 
+<a href="@Url.Action("_Create", "Students")" class="btn btn-success" data-modal="true">Create New</a>
+
+<div id="studentCreateModal" class="modal fade" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div id="studentCreateModalContent"></div>
+    </div>
+</div>
+
 @using (Html.BeginForm("Index", "Students", FormMethod.Get, new { @class = "form-inline" }))
 {
     <p>
@@ -18,24 +26,14 @@
     </p>
 }
 
-<p>
-    <a asp-action="Create" asp-controller="Students" class="btn btn-success">Create New</a>
-</p>
-
 @if (Model != null && Model.Any())
 {
     <table class="table">
         <thead>
             <tr>
-                <th>
-                    @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
-                </th>
-                <th>
-                    @Html.ActionLink("Second Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
-                </th>
-                <th>
-                    @Html.ActionLink("Registration Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
-                </th>
+                <th>@Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                <th>@Html.ActionLink("Second Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                <th>@Html.ActionLink("Registration Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -57,15 +55,15 @@
     </table>
 
     <div class="text-center">
-        <div class="page-count">
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-        </div>
-        <div class="pagination">
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, searchString = ViewBag.CurrentSearch }))
-        </div>
+        <div class="page-count">Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</div>
+        <div class="pagination">@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, searchString = ViewBag.CurrentSearch }))</div>
     </div>
 }
 else
 {
     <p>No students found.</p>
+}
+
+@section Scripts {
+    <script src="~/lib/studentModal.js"></script>
 }

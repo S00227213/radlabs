@@ -89,6 +89,33 @@ namespace Week10MVCS00227213.Controllers
             return View();
         }
 
+        // GET: Students/_Create
+        // This method is used to display a partial view for creating a student in a modal dialog.
+        public IActionResult _Create()
+        {
+            return PartialView("_Create", new Student { RegistrationDate = DateTime.Now });
+        }
+
+        // POST: Students/_Create
+        // This method handles the form submission from the modal dialog for creating a new student.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> _Create([Bind("StudentID,FirstName,SecondName,RegistrationDate")] Student student)
+        {
+            string ModalMessage = "";
+            if (ModelState.IsValid)
+            {
+                _context.Add(student);
+                await _context.SaveChangesAsync();
+                ModalMessage = "Student added successfully!";
+            }
+            else
+            {
+                ModalMessage = "An error occurred. Please check your data.";
+            }
+            return RedirectToAction(nameof(Index), new { ModalMessage = ModalMessage });
+        }
+
         // Action to handle the post request for creating a new student.
         [HttpPost]
         [ValidateAntiForgeryToken]
