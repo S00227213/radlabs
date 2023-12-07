@@ -9,6 +9,12 @@ namespace ClubModels
     {
         public DbSet<Club> Clubs { get; set; }
         public DbSet<ClubEvent> ClubEvents { get; set; }
+
+        // Constructor that accepts DbContextOptions<ClubsContext>
+        // Necessary for dependency injection to pass in the database context options
+        public ClubsContext(DbContextOptions<ClubsContext> options) : base(options)
+        {
+        }
         public ClubsContext()
             : base()
         {

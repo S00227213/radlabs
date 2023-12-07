@@ -1,0 +1,37 @@
+﻿@{
+   
+    Layout = "~/Views/Shared/_Layout.cshtml";
+ 
+    ViewData["Title"] = "Ajax Club Picker";
+}
+
+<h2>Select a Club</h2>
+
+@* Dropdown list for selecting clubs *@
+@Html.DropDownList("ClubList", (SelectList)ViewBag.clubList, "Choose...", new { @class = "form-control", id = "clubList" })
+
+@* Div where the partial view content will be displayed *@
+<div id="ClubEventsDetails"></div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            // jQuery ready function
+            $('#clubList').change(function () {
+                // jQuery change event for dropdown
+                var clubId = $(this).val(); // Get the selected club ID
+                $.ajax({
+                    url: '@Url.Action("_ClubEvents", "ClubEvents")',
+                    type: 'GET', 
+                    data: { id: clubId },
+                    cache: false,
+                    success: function (result) {
+                        // Success callback
+                        $('#ClubEventsDetails').html(result);
+                    }
+                });
+            });
+        });
+    </script>
+
+}
