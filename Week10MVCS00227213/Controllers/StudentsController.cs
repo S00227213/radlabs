@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DataModel;
-using Tracker.WebAPIClient;
+using X.PagedList;
+using X.PagedList.Mvc.Core;
 
 namespace Week10MVCS00227213.Controllers
 {
@@ -16,18 +12,61 @@ namespace Week10MVCS00227213.Controllers
 
         public StudentsController(SchoolContext context)
         {
+            // Initialization of the database context.
             _context = context;
         }
 
-        // GET: Students
-        public async Task<IActionResult> Index()
+        // Index action for displaying the list of students with paging, sorting, and searching.
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-              return _context.Students != null ? 
-                          View(await _context.Students.ToListAsync()) :
-                          Problem("Entity set 'SchoolContext.Students'  is null.");
+            // Sorting parameters.
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            // Search and paging parameters.
+            ViewBag.CurrentSearch = searchString;
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+            // Building the query for students, applying search and sorting as necessary.
+            var students = from s in _context.Students select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.FirstName.Contains(searchString) || s.SecondName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.FirstName).ThenByDescending(s => s.SecondName);
+                    break;
+                case "Date":
+                    students = students.OrderBy(s => s.RegistrationDate);
+                    break;
+                case "date_desc":
+                    students = students.OrderByDescending(s => s.RegistrationDate);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.FirstName).ThenBy(s => s.SecondName);
+                    break;
+            }
+
+            // Page size and number for pagination.
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            // Return the view with a paged list of students.
+            return View(await students.ToPagedListAsync(pageNumber, pageSize));
         }
 
-        // GET: Students/Details/5
+        // Details action to display a single student's details.
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.Students == null)
@@ -35,8 +74,7 @@ namespace Week10MVCS00227213.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students
-                .FirstOrDefaultAsync(m => m.StudentID == id);
+            var student = await _context.Students.FirstOrDefaultAsync(m => m.StudentID == id);
             if (student == null)
             {
                 return NotFound();
@@ -45,19 +83,13 @@ namespace Week10MVCS00227213.Controllers
             return View(student);
         }
 
-        // GET: Students/Create
+        // Action to present a form for creating a new student.
         public IActionResult Create()
         {
-            
-            ActivityAPIClient.Track(StudentID: "s00227213", StudentName: "Jack Monaghan",
-                activityName: "RAD301 Week 10 Lab 2023", Task: "Implementing Date Picker");
-
             return View();
         }
 
-        // POST: Students/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Action to handle the post request for creating a new student.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("StudentID,FirstName,SecondName,RegistrationDate")] Student student)
@@ -71,7 +103,7 @@ namespace Week10MVCS00227213.Controllers
             return View(student);
         }
 
-        // GET: Students/Edit/5
+        // Action to present a form for editing an existing student's details.
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.Students == null)
@@ -87,9 +119,7 @@ namespace Week10MVCS00227213.Controllers
             return View(student);
         }
 
-        // POST: Students/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Action to handle the post request for editing an existing student.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("StudentID,FirstName,SecondName,RegistrationDate")] Student student)
@@ -122,7 +152,7 @@ namespace Week10MVCS00227213.Controllers
             return View(student);
         }
 
-        // GET: Students/Delete/5
+        // Action to present a form for confirming the deletion of a student.
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null || _context.Students == null)
@@ -130,8 +160,7 @@ namespace Week10MVCS00227213.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students
-                .FirstOrDefaultAsync(m => m.StudentID == id);
+            var student = await _context.Students.FirstOrDefaultAsync(m => m.StudentID == id);
             if (student == null)
             {
                 return NotFound();
@@ -140,28 +169,29 @@ namespace Week10MVCS00227213.Controllers
             return View(student);
         }
 
-        // POST: Students/Delete/5
+        // Action to handle the post request for deleting a student.
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             if (_context.Students == null)
             {
-                return Problem("Entity set 'SchoolContext.Students'  is null.");
+                return Problem("Entity set 'SchoolContext.Students' is null.");
             }
             var student = await _context.Students.FindAsync(id);
             if (student != null)
             {
                 _context.Students.Remove(student);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
+        // Utility method to check if a student exists.
         private bool StudentExists(string id)
         {
-          return (_context.Students?.Any(e => e.StudentID == id)).GetValueOrDefault();
+            return _context.Students.Any(e => e.StudentID == id);
         }
     }
 }
