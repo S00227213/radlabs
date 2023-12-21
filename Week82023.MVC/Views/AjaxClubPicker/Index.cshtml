@@ -1,7 +1,5 @@
 ﻿@{
-   
     Layout = "~/Views/Shared/_Layout.cshtml";
- 
     ViewData["Title"] = "Ajax Club Picker";
 }
 
@@ -22,16 +20,18 @@
                 var clubId = $(this).val(); // Get the selected club ID
                 $.ajax({
                     url: '@Url.Action("_ClubEvents", "ClubEvents")',
-                    type: 'GET', 
+                    type: 'GET',
                     data: { id: clubId },
                     cache: false,
                     success: function (result) {
-                        // Success callback
                         $('#ClubEventsDetails').html(result);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error - Response Text: " + xhr.responseText);
+                        $('#ClubEventsDetails').html("Failed to load club events. Error: " + error);
                     }
                 });
             });
         });
     </script>
-
 }

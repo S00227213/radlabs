@@ -37,7 +37,7 @@ namespace DataModel
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Read the student data from a CSV file and seed the database
-            var students = Get<StudentMap, Student>(@"C:\Users\jackm\Desktop\RAD\rad301-labs-2023-2024-S00227213\Week10ClassLibraryS00227213\StudentList1.csv");
+            var students = Get<StudentMap, Student>(@"C:\Users\jackm\Source\Repos\rad301-labs-2023-2024-S00227213\Week10ClassLibraryS00227213\StudentList1.csv");
             modelBuilder.Entity<Student>().HasData(students.ToArray());
         }
 

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<ClubModels.ClubEvent>
+
+<h3>Club Events</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Venue</th>
+            <th>Start Date and Time</th>
+            <th>End Date and Time</th>
+            <th>Location</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var clubEvent in Model)
+        {
+            <tr>
+                <td>@clubEvent.Venue</td>
+                <td>@clubEvent.StartDateTime</td>
+                <td>@clubEvent.EndDateTime</td>
+                <td>@clubEvent.Location</td>
+            </tr>
+        }
+    </tbody>
+</table>

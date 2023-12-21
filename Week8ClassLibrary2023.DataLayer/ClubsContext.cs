@@ -27,13 +27,18 @@ namespace ClubModels
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var myconnectionstring = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Week8DB-S00227213";
-            optionsBuilder.UseSqlServer(myconnectionstring)
-              .LogTo(Console.WriteLine,
-                     new[] { DbLoggerCategory.Database.Command.Name },
-                     LogLevel.Information).
-                        EnableSensitiveDataLogging(true);
+            if (!optionsBuilder.IsConfigured)
+            {
+                var myconnectionstring = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Week8DB-S00227213;Integrated Security=True;";
+                optionsBuilder.UseSqlServer(myconnectionstring)
+                    .LogTo(Console.WriteLine,
+                            new[] { DbLoggerCategory.Database.Command.Name },
+                            LogLevel.Information)
+                    .EnableSensitiveDataLogging(true);
+            }
         }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -26,6 +26,9 @@ public class ClubEventsController : Controller
         return View(); // Returning the Index view
     }
 
+
+
+
     [HttpPost]
     public async Task<ActionResult> Index(Club model)
     {
@@ -81,5 +84,12 @@ public class ClubEventsController : Controller
         // Querying the events for a particular club
         var qry = await db.ClubEvents.Where(ce => ce.ClubId == id).ToListAsync();
         return PartialView(qry); // Returning the partial view with the query result
+    }
+    // Ensure that the action is expecting a GET request and the return type is correct
+    [HttpGet]
+    public async Task<IActionResult> _clubEvents(int id)
+    {
+        var clubEvents = await db.ClubEvents.Where(ce => ce.ClubId == id).ToListAsync();
+        return PartialView("_ClubEvents", clubEvents);
     }
 }

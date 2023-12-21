@@ -22,13 +22,12 @@ namespace Week9.MVC.S00227213.Controllers
                                     activityName: "RAD301 Week 9 Lab 2223", Task: "Testing Club controller");
         }
 
-
         // GET: Clubs
         public async Task<IActionResult> Index()
         {
-              return _context.Clubs != null ? 
-                          View(await _context.Clubs.ToListAsync()) :
-                          Problem("Entity set 'Week9DbContext.Clubs'  is null.");
+            return _context.Clubs != null ?
+                       View(await _context.Clubs.ToListAsync()) :
+                       Problem("Entity set 'Week9DbContext.Clubs' is null.");
         }
 
         // GET: Clubs/Details/5
